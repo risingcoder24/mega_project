@@ -1,0 +1,48 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block page_title %}Manage Posts{% endblock page_title %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                {% url 'add_post' as add_post %}
+                <a href="{% url 'add_post'%}" class="btn btn-outline-success" >Add Post</a>
+                <br> <br>
+
+                <div class="card">
+                    <div class="card-header bg-light" >
+                        <h3 class="card-title">Manage Posts</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>SN</th>
+                                    <th>Post Name</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for post in posts %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{post.name}}</td>
+                                    <td>
+                                        <a href="{% url 'edit_post' post.id %}" class="btn btn-outline-success">Edit</a> -
+                                        <a href="{% url 'delete_post' post.id %}" onclick="return confirm('Are you sure you want to delete this post ?')" class="btn btn-outline-danger">Delete</a> 
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
